@@ -1,0 +1,145 @@
+<?php
+
+
+namespace App\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Array_;
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="categories")
+ */
+class Category
+{
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+ private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=100)
+     */
+ private $name;
+
+    /**
+     * @var Job[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Job", mappedBy="category")
+     */
+    private $jobs;
+
+    /**
+     * @var Affiliate[]|ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Affiliate", mappedBy="categories")
+     */
+    private $affiliates;
+
+    //Es necesario el contructor en el caso de las relaciones uno a mucho y mucho a mucho Colecciones
+    public function _construct()
+    {
+       $this->jobs=new ArrayCollection();
+       $this->affiliates=new ArrayCollection();
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return Job[]|ArrayCollection
+     */
+    public function getJobs()
+    {
+        return $this->jobs;
+    }
+// A diferencia de las demás propiedades, en el caso de los arrays es necesario crear un add y un remove elementos
+    /**
+     * @param Job $job
+     *
+     * @return self
+     */
+    public function addJob(Job $job) : self
+    {
+        if (!$this->jobs->contains($job)) {
+            $this->jobs->add($job);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Job $job
+     *
+     * @return self
+     */
+    public function removeJob(Job $job) : self
+    {
+        $this->jobs->removeElement($job);
+
+        return $this;
+    }
+
+    /**
+     * @return Affiliate[]|ArrayCollection
+     */
+    public function getAffiliates()
+    {
+        return $this->affiliates;
+    }
+// A diferencia de las demás propiedades, en el caso de los arrays es necesario crear un add y un remove elementos
+    /**
+     * @param Affiliate $affiliate
+     *
+     * @return self
+     */
+    public function addAffiliate($affiliate) : self
+    {
+        if (!$this->affiliates->contains($affiliate)) {
+            $this->affiliates->add($affiliate);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Affiliate $affiliate
+     *
+     * @return self
+     */
+    public function removeAffiliate($affiliate) : self
+    {
+        $this->affiliates->removeElement($affiliate);
+
+        return $this;
+    }
+
+}
