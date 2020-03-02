@@ -24,42 +24,42 @@ class Job
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=190)
      */
     private $type;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=190)
      */
     private $company;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=190, nullable=true)
      */
     private $logo;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=190, nullable=true)
      */
     private $url;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=190)
      */
     private $position;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=190)
      */
     private $location;
 
@@ -80,7 +80,7 @@ class Job
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=190, unique=true)
      */
     private $token;
 
@@ -101,7 +101,7 @@ class Job
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=190)
      */
     private $email;
 
