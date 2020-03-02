@@ -17,7 +17,7 @@ class JobController extends AbstractController
 /**
  * Lists all job entites.
  *
- * @Route("/", name="job.list")
+ * @Route("/", name="job.list", methods="GET")
  *
  * @return Response
  */
@@ -29,6 +29,8 @@ public function list():Response
 
 /**
  * Finds and displays a job entity.
+ *
+ * @Route("/{id}", name="job.show", methods="GET", requirements={"id" = "\d+"})
  *
  * @param Job $job
  * @return Response

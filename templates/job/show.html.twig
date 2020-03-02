@@ -1,4 +1,4 @@
-{% extends 'base.htm.twig' %}
+{% extends 'base.html.twig' %}
 {% block body %}
     <h1>Job</h1>
 
@@ -29,7 +29,7 @@
 
             <div class="row">
                 <div class="col-sm-12 text-right">
-                    <a class="btn btn-default" href="#">
+                    <a class="btn btn-default" href="{{ path('job.list')}}">
                         <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                         Back to list
                     </a>
