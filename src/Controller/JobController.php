@@ -3,7 +3,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Job;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,30 +17,39 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class JobController extends AbstractController
 {
-/**
- * Lists all job entites.
- *
- * @Route("/", name="job.list", methods="GET")
- *
- * @return Response
- */
-public function list():Response
-{
-    $jobs=$this->getDoctrine()->getRepository(Job::class)->findAll();
-    return $this->render('job/list.html.twig',['jobs'=>$jobs,]);
-}
+    /**
+     * Lists all job entities.
+     *
+     * @Route("/", name="job.list", methods="GET")
+     *
+     * @param EntityManagerInterface $em
+     *
+     * @return Response
+     */
+    public function list(EntityManagerInterface $em) : Response
+    {
+        $categories = $em->getRepository(Category::class)->findWithActiveJobs();
 
-/**
- * Finds and displays a job entity.
- *
- * @Route("/{id}", name="job.show", methods="GET", requirements={"id" = "\d+"})
- *
- * @param Job $job
- * @return Response
- */
-public function show(Job $job):Response
-{
-    return $this->render('job/show.html.twig', ['job'=>$job,]);
+        return $this->render('job/list.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
 
-}
+    /**
+     * Finds and displays a job entity.
+     *
+     * @Route("job/{id}", name="job.show", methods="GET", requirements={"id" = "\d+"})
+     *
+     * @Entity("job", expr="repository.findActiveJob(id)")
+     *
+     * @param Job $job
+     *
+     * @return Response
+     */
+    public function show(Job $job) : Response
+    {
+        return $this->render('job/show.html.twig', [
+            'job' => $job,
+        ]);
+    }
 }

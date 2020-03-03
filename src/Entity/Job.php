@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\JobRepository")
  * @ORM\Table(name="jobs")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -406,6 +406,11 @@ class Job
      {
          $this->createdAt= new \DateTime();
          $this->updatedAt= new \DateTime();
+         //A user can come back to re-activate or extend the validity of the job for an extra 30 days…
+         //When you need to do something automatically before a Doctrine object is serialized to the database, you can add a new action to the lifecycle callbacks
+         if (!$this->expiresAt) {
+             $this->expiresAt = (clone $this->createdAt)->modify('+30 days');
+         }
      }
      /**
       * @ORM\PreUpdate()
