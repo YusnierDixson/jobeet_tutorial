@@ -3,6 +3,7 @@
 
 namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Array_;
 
@@ -41,6 +42,15 @@ class Category
      */
     private $affiliates;
 
+    /**
+     * @var string
+     *
+     * @Gedmo\Slug(fields={"name"})
+     *
+     * @ORM\Column(type="string", length=128, unique=true)
+     */
+    private $slug;
+
     //Es necesario el contructor en el caso de las relaciones uno a mucho y mucho a mucho Colecciones
     public function _construct()
     {
@@ -56,7 +66,21 @@ class Category
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
 
+    /**
+     * @param string $slug
+     */
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
+    }
 
     /**
      * @return string
