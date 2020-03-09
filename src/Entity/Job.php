@@ -189,7 +189,7 @@ class Job
     }
 
     /**
-     * @param string|null|UploadedFile
+     * @param string|null|UploadedFile $logo
      *
      * @return self
      */
