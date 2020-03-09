@@ -41,8 +41,8 @@ class JobType extends AbstractType
             ->add('logo',FileType::class,[
                 'required' => false,
                 'constraints' => [
-                    new Image(),
-                ]
+                    new Image()
+                ],'data_class'=>null
             ])
             ->add('url', UrlType::class, ['required'=>false,'constraints'=>[
                 new Length(['max'=>190])]])

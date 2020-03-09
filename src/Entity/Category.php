@@ -31,7 +31,7 @@ class Category
     /**
      * @var Job[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Job", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Job", mappedBy="category", cascade={"remove"})
      */
     private $jobs;
 
@@ -85,7 +85,7 @@ class Category
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
