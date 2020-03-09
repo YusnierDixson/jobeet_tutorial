@@ -111,7 +111,7 @@ class Category
     public function getActiveJobs()
     {
         return $this->jobs->filter(function(Job $job) {
-            return $job->getExpiresAt() > new \DateTime();
+            return $job->getExpiresAt() > new \DateTime()&& $job->isActivated();
         });
     }
 // A diferencia de las demás propiedades, en el caso de los arrays es necesario crear un add y un remove elementos
