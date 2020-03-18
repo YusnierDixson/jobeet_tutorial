@@ -16,7 +16,7 @@
 
             {% if job.activated %}
                 {% if job.expiresAt < date() %}
-                    <p class="navbar-text ">Expired</p>
+                    <p class="navbar-text ">{{'Expired'}}</p>
                 {% else %}
                     <p class="navbar-text ">Expires in <strong>{{ job.expiresAt.diff(date())|date('%a') }}</strong> days</p>
                 {% endif %}
